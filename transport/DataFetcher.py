@@ -65,7 +65,10 @@ class DataFetcher(object):
 
         full_siri_ride_stops = pd.DataFrame()
         for start_time_as_str, end_time_as_str in self.get_time_periods():
+            print(f"Fetching data for time period: {start_time_as_str} - {end_time_as_str}")
             siri_ride_stops_daily = self.fetch_single_time_period(start_time_as_str, end_time_as_str)
+            if siri_ride_stops_daily is None or siri_ride_stops_daily.empty:
+                continue
             full_siri_ride_stops = pd.concat([full_siri_ride_stops, siri_ride_stops_daily])
 
         return full_siri_ride_stops
